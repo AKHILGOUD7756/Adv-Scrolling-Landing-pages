@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sticky Columns Scroll</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#141414;
+  --bg-200:#282828;
+  --fg-100:#f1f1f1;
+  --fg-200:#a1a1a1;
+}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family:"DM Sans",sans-serif;
+  background:var(--bg);
+  color:var(--fg-100);
+}
+
+section {
+  width:100vw;
+  height:100svh;
+  overflow:hidden;
+}
+
+h1 {
+  font-size:4.5rem;
+  font-weight:500;
+  line-height:1.1;
+}
+
+p {
+  font-size:1rem;
+}
+
+img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* Intro / Outro */
+.intro,.outro{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.intro h1,.outro h1{
+  width:50%;
+  text-align:center;
+}
+
+/* Sticky Columns */
+.sticky-cols{
+  padding:.5rem;
+}
+
+.sticky-cols-wrapper{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+
+.col{
+  position:absolute;
+  width:50%;
+  height:100%;
+  will-change:transform,opacity;
+}
+
+.col h1{color:var(--fg-200);width:60%;}
+.col p{width:60%;}
+
+.col-2{transform:translateX(100%);}
+.col-3{transform:translate(100%,100%);padding:.5rem;}
+.col-4{transform:translate(100%,100%);}
+
+.col-content,.col-img{
+  width:100%;
+  height:100%;
+  padding:.5rem;
+}
+
+.col-content-wrapper,
+.col-content-wrapper-2,
+.col-img-wrapper{
+  width:100%;
+  height:100%;
+  background:var(--bg-200);
+  border-radius:3rem;
+  padding:2.5rem;
+}
+
+.col-content-wrapper-2{
+  position:absolute;
+  inset:0;
+}
+
+.col-img-1,.col-img-2{
+  position:absolute;
+  inset:0;
+}
+
+.col-img-2{
+  clip-path:polygon(0 0,100% 0,100% 0,0 0);
+}
+
+.col-img-2 img{transform:scale(1.25);}
+
+@media(max-width:1000px){
+  h1{font-size:1.25rem;}
+  p{font-size:.85rem;}
+  .col h1,.col p{width:100%;}
+}
+</style>
+</head>
+
+<body>
+
+<section class="intro">
+  <h1>We create modern interiors that feel effortlessly personal.</h1>
+</section>
+
+<section class="sticky-cols">
+<div class="sticky-cols-wrapper">
+
+  <div class="col col-1">
+    <div class="col-content">
+      <div class="col-content-wrapper">
+        <h1>We design spaces where comfort meets quiet sophistication.</h1>
+        <p>Layered textures and thoughtful details create interiors that feel elevated.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col col-2">
+    <div class="col-img col-img-1">
+      <div class="col-img-wrapper">
+        <img src="https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg">
+      </div>
+    </div>
+    <div class="col-img col-img-2">
+      <div class="col-img-wrapper">
+        <img src="https://images.pexels.com/photos/29240579/pexels-photo-29240579.jpeg">
+      </div>
+    </div>
+  </div>
+
+  <div class="col col-3">
+    <div class="col-content-wrapper">
+      <h1>Our interiors are crafted to feel calm.</h1>
+      <p>Balance between warmth and modernity.</p>
+    </div>
+    <div class="col-content-wrapper-2">
+      <h1>Every detail brings elegance.</h1>
+      <p>Timeless clarity through thoughtful design.</p>
+    </div>
+  </div>
+
+  <div class="col col-4">
+    <div class="col-img">
+      <div class="col-img-wrapper">
+        <img src="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg">
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="outro">
+  <h1>Timeless design begins with a conversation.</h1>
+</section>
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* Lenis */
+const lenis=new Lenis({smooth:true});
+lenis.on("scroll",ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));
+gsap.ticker.lagSmoothing(0);
+
+/* Timeline */
+const tl=gsap.timeline({
+  scrollTrigger:{
+    trigger:".sticky-cols",
+    start:"top top",
+    end:"+=500%",
+    pin:true,
+    scrub:1
+  }
+});
+
+tl
+.to(".col-1",{opacity:0,scale:.75})
+.to(".col-2",{x:"0%"}, "<")
+.to(".col-3",{y:"0%"}, "<")
+.to(".col-img-2",{clipPath:"polygon(0 0,100% 0,100% 100%,0 100%)"}, "<")
+.to(".col-img-2 img",{scale:1},"<")
+
+.to(".col-2",{opacity:0,scale:.75})
+.to(".col-3",{x:"0%"}, "<")
+.to(".col-4",{y:"0%"}, "<");
+</script>
+
+</body>
+</html>
