@@ -9,4 +9,11 @@
 
 <img width="1305" height="678" alt="image" src="https://github.com/user-attachments/assets/00131bbf-a63f-423d-81d2-5273c6e973b7" />
 
+==================================================================
+
+## card stickey
+
+<img width="1044" height="631" alt="image" src="https://github.com/user-attachments/assets/43013007-d252-47e4-86d5-5b5983d59022" />
+
+
 
