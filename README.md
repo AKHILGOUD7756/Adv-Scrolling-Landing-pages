@@ -16,4 +16,9 @@
 <img width="1044" height="631" alt="image" src="https://github.com/user-attachments/assets/43013007-d252-47e4-86d5-5b5983d59022" />
 
 
+## iphone macbook pro icon view 
+
+<img width="1442" height="302" alt="image" src="https://github.com/user-attachments/assets/1fbb62b1-58d0-4b13-a535-40c1271104d5" />
+
+
 
