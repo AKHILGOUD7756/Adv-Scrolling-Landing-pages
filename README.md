@@ -5,3 +5,8 @@
 
 ===============================================================
 
+## Sticky Columns Scroll
+
+<img width="1305" height="678" alt="image" src="https://github.com/user-attachments/assets/00131bbf-a63f-423d-81d2-5273c6e973b7" />
+
+
